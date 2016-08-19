@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htche.oauth.dao.OauthRefreshTokenDao">
+	<resultMap type="com.htche.oauth.entity.OauthRefreshToken" id="refreshToken">
+		<result column="token_id" property="tokenId"/>
+		<result column="token" property="token"/>
+		<result column="authentication" property="authentication"/>
+	</resultMap>
+	
+	<insert id="storeRefreshToken" parameterType="com.htche.oauth.entity.OauthRefreshToken">
+		insert into oauth_refresh_token(token_id,token,authentication) values(#{tokenId},#{token,javaType=byte[],jdbcType=BLOB,typeHandler=org.apache.ibatis.type.BlobTypeHandler},#{authentication,javaType=byte[],jdbcType=BLOB,typeHandler=org.apache.ibatis.type.BlobTypeHandler})
+	</insert>
+	
+	<select id="readRefreshToken" parameterType="string" resultMap="refreshToken">
+		select token_id,token,authentication from oauth_refresh_token where token_id=#{tokenValue}
+	</select>
+	<delete id="removeRefreshToken" parameterType="string">
+		delete from oauth_refresh_token where token_id=#{tokenValue}
+	</delete>
+</mapper>

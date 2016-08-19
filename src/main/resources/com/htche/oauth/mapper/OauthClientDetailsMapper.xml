@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htche.oauth.dao.OauthClientDetailsDao">
+	<resultMap id="BaseResultMap" type="com.htche.oauth.entity.OauthClientDetails">
+		<id column="client_id" property="clientId" jdbcType="VARCHAR" />
+		<result column="resource_ids" property="resourceIds" jdbcType="VARCHAR" />
+		<result column="client_secret" property="clientSecret" jdbcType="VARCHAR" />
+		<result column="scope" property="scope" jdbcType="VARCHAR" />
+		<result column="authorized_grant_type" property="authorizedGrantTypes" jdbcType="VARCHAR" />
+		<result column="web_server_redirect_uri" property="webServerRedirectUri" jdbcType="VARCHAR" />
+		<result column="authorities" property="authorities" jdbcType="VARCHAR" />
+		<result column="access_token_validity" property="accessTokenValidity" jdbcType="VARCHAR" />
+		<result column="refresh_token_validity" property="refreshTokenValidity" jdbcType="VARCHAR" />
+		<result column="additional_information" property="additionalInformation" jdbcType="VARCHAR" />
+		<result column="autoapprove" property="autoapprove" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		client_id, resource_ids, client_secret,scope,authorized_grant_type,web_server_redirect_uri,authorities,access_token_validity,refresh_token_validity,additional_information,autoapprove
+	</sql>
+	<select id="selectByClientId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from oauth_client_details
+		where client_id = #{clientId,jdbcType=CHAR}
+	</select>
+	<insert id="insert" parameterType="com.htche.oauth.entity.OauthClientDetails">
+		insert into oauth_client_details (client_id, resource_ids, client_secret)
+		values (#{clientId,jdbcType=CHAR}, #{resourceIds,jdbcType=VARCHAR},
+		#{clientSecret,jdbcType=VARCHAR}) ON DUPLICATE KEY
+		UPDATE
+		client_id=values(clientId)
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from oauth_client_details where client_id= #{clientId,jdbcType=VARCHAR}
+	</delete>
+</mapper>
