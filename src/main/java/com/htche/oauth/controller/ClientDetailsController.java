@@ -17,4 +17,11 @@ public class ClientDetailsController {
 		
 		return view;
 	}
+	
+	public ModelAndView list()
+	{
+		ModelAndView view=new ModelAndView("");
+		
+		return view;
+	}
 }
