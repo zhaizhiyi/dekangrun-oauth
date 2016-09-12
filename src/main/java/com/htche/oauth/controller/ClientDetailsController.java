@@ -1,5 +1,8 @@
 package com.htche.oauth.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,13 +25,15 @@ public class ClientDetailsController {
 	public ModelAndView list()
 	{
 		ModelAndView view=new ModelAndView("");
+		List list=new ArrayList();
+		view.addObject("list",list);
 		return view;
 	}	
 
 	public ModelAndView add()
 	{
 		ModelAndView view=new ModelAndView("");
-
+		view.addObject("usrname","admin");
 		return view;
 	}
 }
